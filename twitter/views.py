@@ -85,19 +85,19 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
-    def get_context_data(self, **kwargs):
-        context = super(ProfileDetailView, self).get_context_data(**kwargs)
-        username = self.kwargs['username']
-        context['username'] = username
-        context['user'] = get_current_user(self.request)
-        context['following'] = Connection.objects.filter(follower__username=username).count()
-        context['followers'] = Connection.objects.filter(following__username=username).count()
+    # def get_context_data(self, **kwargs):
+    #     context = super(ProfileDetailView, self).get_context_data(**kwargs)
+    #     username = self.kwargs['username']
+    #     context['username'] = username
+    #     context['user'] = get_current_user(self.request)
+    #     context['following'] = Connection.objects.filter(follower__username=username).count()
+    #     context['followers'] = Connection.objects.filter(following__username=username).count()
 
-        if username is not context['user'].username:
-            result = Connection.objects.filter(follower__username=context['user'].username).filter(following__username=username)
-            context['connected'] = True if result else False
+    #     if username is not context['user'].username:
+    #         result = Connection.objects.filter(follower__username=context['user'].username).filter(following__username=username)
+    #         context['connected'] = True if result else False
 
-        return context
+    #     return context
 
 # @login_required
 # def follow_view(request, *args, **kwargs):
