@@ -27,13 +27,13 @@ def index(request):
     context = {'latest_tweet_list': latest_tweet_list}
     return render(request, 'twitter/index.html', context)
 
-# @login_required
+@login_required
 def tweetlist(request):
     latest_tweet_list = Tweet.objects.all().order_by('-pub_date')[:5]
     context = {'latest_tweet_list': latest_tweet_list}
     return render(request, 'twitter/tweetlist.html', context)
 
-# @login_required
+@login_required
 def detail(request, tweet_id):
     user = request.user
     tweet = get_object_or_404(Tweet, pk=tweet_id)
@@ -79,25 +79,25 @@ def signup(request):
     context = {'form':form}
     return render(request, 'twitter/signup.html', context)
 
-# class ProfileDetailView(LoginRequiredMixin, DetailView):
-#     model = User
-#     template_name = "twitter/profile.html"
-#     slug_field = 'username'
-#     slug_url_kwarg = 'username'
+class ProfileDetailView(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = "twitter/profile.html"
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
-#     def get_context_data(self, **kwargs):
-#         context = super(ProfileDetailView, self).get_context_data(**kwargs)
-#         username = self.kwargs['username']
-#         context['username'] = username
-#         context['user'] = get_current_user(self.request)
-#         context['following'] = Connection.objects.filter(follower__username=username).count()
-#         context['followers'] = Connection.objects.filter(following__username=username).count()
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetailView, self).get_context_data(**kwargs)
+        username = self.kwargs['username']
+        context['username'] = username
+        context['user'] = get_current_user(self.request)
+        context['following'] = Connection.objects.filter(follower__username=username).count()
+        context['followers'] = Connection.objects.filter(following__username=username).count()
 
-#         if username is not context['user'].username:
-#             result = Connection.objects.filter(follower__username=context['user'].username).filter(following__username=username)
-#             context['connected'] = True if result else False
+        if username is not context['user'].username:
+            result = Connection.objects.filter(follower__username=context['user'].username).filter(following__username=username)
+            context['connected'] = True if result else False
 
-#         return context
+        return context
 
 # @login_required
 # def follow_view(request, *args, **kwargs):
