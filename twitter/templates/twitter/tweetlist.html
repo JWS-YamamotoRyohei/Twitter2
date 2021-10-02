@@ -10,6 +10,10 @@
     {% endfor %}
     </ul>
 
+    <br>
+        <a href="{% url 'twitter:tweet_new' %}" >new tweet</a>
+    </br>
+
     <a href= "{% url 'twitter:logout' %}">Logout</a>
 
 {% else %}
