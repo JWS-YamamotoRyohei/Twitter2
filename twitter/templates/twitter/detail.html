@@ -2,14 +2,14 @@
 <p>
     {{ tweet.tweet_text }}
     <br>
-        <!-- <div style="display:inline-flex">
+        <div style="display:inline-flex">
             <form action="{% url 'twitter:detail' tweet.id %}" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="お気に入り">
             </form>
         :{{ tweet.nicevotes }}
-        </div> -->
+        </div>
     </br>
     <br>
         <a href= "{% url 'twitter:profile' tweet.author %}">{{tweet.author}}</a>

@@ -8,14 +8,14 @@ class TweetForm(forms.ModelForm):
         model = Tweet
         fields = ('tweet_text', 'author')
 
-# class NiceVoteForm(forms.Form):
-#     def __init__(self, *args, **kwargs):
-#         self.tweet = kwargs.pop('tweet')
-#         super(VoteForm, self).__init__(*args, **kwargs)
+class NiceVoteForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.tweet = kwargs.pop('tweet')
+        super(VoteForm, self).__init__(*args, **kwargs)
 
-#     def save(self):
-#         self.tweet.nicevotes += 1
-#         selected_tweet.save()
+    def save(self):
+        self.tweet.nicevotes += 1
+        selected_tweet.save()
 
 class SignUpForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput)
